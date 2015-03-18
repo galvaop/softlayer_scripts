@@ -47,6 +47,9 @@ echo "Installing base + xfsprogs..."
 yum -y groupinstall base
 yum -y install xfsprogs
 
+echo "Installing x11-auth..."
+yum install xorg-x11-xauth -y
+
 echo "Updating kernel..."
 yum -y update kernel kernel-firmware
 
