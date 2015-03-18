@@ -38,6 +38,7 @@ kernel-firmware-2.6.32-431.29.2.el6.*
 kernel-headers-2.6.32-431.29.2.el6.*
 nss-softokn-freebl-3.14.3-12.el6_5.*
 nss-softokn-3.14.3-12.el6_5.*
+redhat-release-server-6Server-6.5.0.1.el6.*
 EOT
 
 echo "Performing security updates..."
