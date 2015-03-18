@@ -54,6 +54,9 @@ yum install xorg-x11-xauth -y
 echo "Updating kernel..."
 yum -y update kernel kernel-firmware
 
+echo "Installing kernel headers..."
+yum -y install kernel-headers.x86_64
+
 echo "Cleaning up old kernels..."
 package-cleanup --oldkernels --count=1 -y
 
