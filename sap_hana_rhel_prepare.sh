@@ -57,6 +57,20 @@ yum -y update kernel kernel-firmware
 echo "Installing kernel headers..."
 yum -y install kernel-headers.x86_64
 
+echo "Creating directories for hana mountpoints..."
+mkdir -p /hana/{shared,data,log}
+mkdir -p /usr/sap
+
+echo "Stopping and disabling kdump..."
+service kdump stop
+chkconfig kdump off
+
+echo "Stopping and disabling abrt related stuff..."
+service abrtd stop
+service abrt-ccpp stop
+chkconfig abrtd off
+chkconfig abrt-ccpp off
+
 echo "Cleaning up old kernels..."
 package-cleanup --oldkernels --count=1 -y
 
