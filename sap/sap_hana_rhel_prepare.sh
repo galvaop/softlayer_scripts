@@ -72,6 +72,51 @@ yum -y update kernel kernel-firmware
 echo "Installing kernel headers..."
 yum -y install kernel-headers.x86_64
 
+echo "Adding EPEL repo..."
+rpm -Uvh http://ftp.uni-kl.de/pub/linux/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+echo "Installing iperf..."
+yum -y install iperf
+
+echo "Installing duplicity for backups..."
+yum -y install duplicity.x86_64 
+
+echo "Downloading compat-sap++"
+wget http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/compat-sap-c++-4.7.2-10.el6_5.src.rpm
+
+echo "Installing rpm-build"
+yum -y install rpm-build.x86_64
+
+echo "Installing development tools"
+yum -y groupinstall "development tools"
+
+echo "Installing numactl..."
+yum -y install numactl.x86_64
+
+echo "Installing java..."
+yum -y install icedtea-web
+
+echo "Setting up symbolic links..."
+ln -s /usr/lib64/libssl.so.0.9.8e /usr/lib64/libssl.so.0.9.8
+ln -s /usr/lib64/libssl.so.1.0.1e /usr/lib64/libssl.so.1.0.1
+ln -s /usr/lib64/libcrypto.so.0.9.8e /usr/lib64/libcrypto.so.0.9.8
+ln -s /usr/lib64/libcrypto.so.1.0.1e /usr/lib64/libcrypto.so.1.0.1
+
+echo "Disabling kernel huge pages..."
+sed -i 's/biosdevname=0/biosdevname=0 transparent_hugepage=never/g' /boot/grub/grub.conf
+
+echo "Setting up tuned profile..."
+yum -y install tuned
+tuned-adm profile latency-performance
+chkconfig tuned on
+service tuned start
+
+echo "Disabling core dumps for all users..."
+cat >> /etc/security/limits.conf <<EOT
+* soft core 0
+* hard core 0
+EOT
+
 echo "Creating directories for hana mountpoints..."
 mkdir -p /hana/{shared,data,log}
 mkdir -p /usr/sap
