@@ -5,6 +5,8 @@
 
 {
 echo "Setting up firewall rules..."
+iptables -F
+iptables -X
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p icmp -j ACCEPT
 iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT
