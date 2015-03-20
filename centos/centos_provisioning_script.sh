@@ -4,7 +4,10 @@
 
 {
 echo "Setting up firewall rules..."
-iptables -F INPUT	# Flush the input chain
+# Delete first...
+iptables -F 
+iptables -X 
+iptables -Z 
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT
 iptables -A INPUT -j LOG # Delete after entering production if it causes too much IO
