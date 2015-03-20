@@ -22,7 +22,7 @@ echo "Saving rules..."
 echo "Performing system update..."
 yum -y update
 
-# echo "Installing pySLAPI..."
-# yum -y install python-pip
-# pip install softlayer
+echo "Installing pySLAPI..."
+yum -y install pip-python
+pip install softlayer
 } | tee $0.log
