@@ -20,6 +20,12 @@ iptables -L -vn --line
 echo "Saving rules..."
 /sbin/service iptables save
 
+echo "Not forgetting ipv6 - don't use for now..."
+ip6tables -F
+ip6tables -X
+ip6tables -A INPUT -i lo -j ACCEPT
+service ip6tables save
+
 echo "Performing system update..."
 yum -y update
 

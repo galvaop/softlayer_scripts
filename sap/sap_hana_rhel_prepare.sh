@@ -8,8 +8,8 @@
 echo "Setting up firewall rules..."
 iptables -F
 iptables -X
-iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A INPUT -i lo	-j ACCEPT
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p icmp -j ACCEPT
 iptables -A INPUT -s 10.0.0.0/8 -j ACCEPT
 iptables -A INPUT -j LOG
@@ -20,6 +20,12 @@ iptables -L -vn --line
 
 echo "Saving firewall rules for next reboot..."
 service iptables save
+
+echo "Not forgetting ipv6 - don't use for now..."
+ip6tables -F
+ip6tables -X
+ip6tables -A INPUT -i lo -j ACCEPT
+service ip6tables save
 
 # NTP Configuration
 echo "Setting timezone to Lisbon..."
