@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KEY="<keyid>"
+source ~/.sl_env
 
 # Setup ssh keys
 if [ ! -e ~/.ssh/id_rsa ]; then

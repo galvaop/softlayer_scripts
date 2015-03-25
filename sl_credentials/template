@@ -1,3 +1,11 @@
+# Softlayer username
 USER=""
+
+# Softlayer API key for the above user
 API_KEY=""
+
+# Softlayer VPN password for the above user
 VPN_PASS=""
+
+# SSH key id given when uploading to softlayer for *nix systems logon
+KEY=""
