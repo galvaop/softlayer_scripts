@@ -17,12 +17,8 @@ endpoint_url = https://api.softlayer.com/xmlrpc/v3.1/
 EOT
 chmod 600 ~/.softlayer
 
-# Configure vpn access script
-cat > ~/.sl_env <<EOT
-USER="$USER"
-API_KEY="$API_KEY"
-VPN_PASS="$VPN_PASS"
-EOT
+# Configure sl environment
+cp $account ~/.sl_env
 chmod 600 ~/.sl_env
 
 echo "Switched account to $USER."

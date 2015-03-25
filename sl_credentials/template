@@ -8,4 +8,7 @@ API_KEY=""
 VPN_PASS=""
 
 # SSH key id given when uploading to softlayer for *nix systems logon
-KEY=""
+SSHKEY=""
+
+# Object storage account
+OBJ_STOR=""

@@ -1,7 +1,6 @@
 #!/bin/bash
 # Backs up file to object storage via sftp
 
-
 export LOGNAME="<logon name>"
 export FTP_PASSWORD="<api key>"
 export TARGET_URL="sftp://lon02.objectstorage.service.networklayer.com/<container>/<directory>"
