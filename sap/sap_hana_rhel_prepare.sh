@@ -143,6 +143,34 @@ cat >> /etc/security/limits.conf <<EOT
 * hard core 0
 EOT
 
+echo "Creating systcl specific paramanters for saphana..."
+cat >>/etc/sysctl.conf <<EOT
+# Additional sysctl parameters
+# Commented out the ones that will be written by the hana installer.
+net.ipv4.tcp_slow_start_after_idle=0
+net.ipv4.conf.all.rp_filter=0
+#net.ipv4.ip_local_port_range=40000 61000
+net.ipv4.neigh.default.gc_thresh1=256
+net.ipv4.neigh.default.gc_thresh2=1024
+net.ipv4.neigh.default.gc_thresh3=4096
+net.ipv6.neigh.default.gc_thresh1=256
+net.ipv6.neigh.default.gc_thresh2=1024
+net.ipv6.neigh.default.gc_thresh3=4096
+kernel.shmmax=137438953472
+kernel.shmall=33554432
+#kernel.shmmni=65536
+kernel.msgmni=32768
+kernel.sysrq=1
+vm.swappiness=60
+#vm.max_map_count=2000000
+#vm.memory_failure_early_kill=1
+#fs.file-max=20000000
+#fs.aio-max-nr=458752
+EOT
+
+echo "Disabling tmpwatch to avoid cleaning hana locks that if removed crash hana..."
+chmod 000 /etc/cron.daily/tmpwatch
+
 echo "Creating directories for hana mountpoints..."
 mkdir -p /hana/{shared,data,log}
 mkdir -p /usr/sap
