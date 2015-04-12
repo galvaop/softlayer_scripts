@@ -5,7 +5,7 @@ source ~/.sl_env
 # Setup ssh keys
 if [ ! -e ~/.ssh/id_rsa ]; then
 	echo "Private key does not exist. Generating."
-	ssh-gen-key
+	ssh-keygen
 fi
 
 echo "Checking if sshkey is in softlayer..."
@@ -16,12 +16,12 @@ else
 	echo "Key is there."
 fi
 
-DOMAIN="galvaop.net"
 CPU=1
 RAM=1
 DATACENTER="ams01"
 
 read -p "Hostname: " HOSTNAME
+read -p "Domain: " DOMAIN
 read -p "Operating System: " OS
 read -p "CPU: " CPU
 read -p "RAM: " RAM
