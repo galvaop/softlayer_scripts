@@ -1,5 +1,6 @@
 #!/bin/bash
 # Switch sotlayer account updating the config and vpn files
+#
 
 select account in ~/bin/sl_credentials/*; do
 	echo "Configuring account $account"
