@@ -1,0 +1,24 @@
+*** /dev/null
+--- /dev/null
+***************
+*** 2
+- # Be careful with this - you can kill a lot more than your machines....
+--- 0 -----
+***************
+*** 4
+- devicenames="<devnamestring>"
+--- 3 -----
++ devicenames="galvao"
+*** /dev/null
+--- /dev/null
+***************
+*** 2
+- # Be careful with this - you can kill a lot more than your machines....
+--- 0 -----
+*** /dev/null
+--- /dev/null
+***************
+*** 13
+-         sudo echo >/etc/resolv.conf
+--- 13 -----
++ 	sudo restorecon -v /etc/resolv.conf 

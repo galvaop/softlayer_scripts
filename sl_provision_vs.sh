@@ -1,46 +1,32 @@
 #!/bin/bash
+# Provision a centos server in softlayer then run post provisioning script 
 
-source ~/.sl_env
+# Provision server
 
-# Setup ssh keys
-if [ ! -e ~/.ssh/id_rsa ]; then
-	echo "Private key does not exist. Generating."
-	ssh-keygen
-fi
-
-echo "Checking if sshkey is in softlayer..."
-if [ "`sl sshkey list  | grep $SSHKEY`" == "" ]; then
-	echo "Key not present. Sending..."
-	sl sshkey add $SSHKEY --file="~/.ssh/id_rsa.pub"
-else
-	echo "Key is there."
-fi
-
-CPU=1
-RAM=1
-DATACENTER="ams01"
-
-read -p "Hostname: " HOSTNAME
-read -p "Domain: " DOMAIN
-read -p "Operating System: " OS
-read -p "CPU: " CPU
-read -p "RAM: " RAM
-
-OPTIONS="-d $DATACENTER --hourly -n 100 --disk 25 --private -o $OS -k $SSHKEY"
+DATACENTER="ams03"
+HOSTNAME="galvaop"
+DOMAIN="sldemo.com"
+CPU="1"
+RAM="1"
+OS="ubuntu_latest"
+BILLING="hourly"
+NETWORK="100"
+SSHKEY="<sshkey>"
+POSTINSTALL="https://www.dropbox.com/s/pvthl80336p93gs/sl_post_provision_docker_mongodb.sh?dl=1"
+DISK="25"
+OTHER_OPTIONS=""
 
 echo "Using SL account:"
-sl config show
+slcli config show
 
 echo "Estimated per machine cost:"
-sl vs create --hostname $HOSTNAME --domain $DOMAIN --cpu $CPU --memory $RAM $OPTIONS --test
+#slcli vs create --hostname $HOSTNAME --domain $DOMAIN --cpu $CPU --memory $RAM $OPTIONS --test
+# slcli vs create --hostname $HOSTNAME --domain $DOMAIN --cpu $CPU --memory $RAM $OPTIONS
 
-read -p "Continue (y/[n]): " P 
+# Get a quote
+slcli vs create --domain $DOMAIN --hostname $HOSTNAME --cpu $CPU --memory $RAM --os $OS --datacenter $DATACENTER --billing $BILLING --network $NETWORK --disk $DISK --postinstall $POSTINSTALL --key $SSHKEY $OTHER_OPTIONS --test
 
-[ "$P" == "y" ] || ( echo "Cancelling..." ; exit )
+# Create after confirm
+slcli vs create --domain $DOMAIN --hostname $HOSTNAME --cpu $CPU --memory $RAM --os $OS --datacenter $DATACENTER --billing $BILLING --network $NETWORK --disk $DISK --postinstall $POSTINSTALL --key $SSHKEY $OTHER_OPTIONS
 
-echo "Provisioning host $HOSTNAME$i.$DOMAIN..."
-sl vs create --hostname $HOSTNAME$i --domain $DOMAIN --cpu $CPU --memory $RAM $OPTIONS -y
-
-sleep 2s
-watch "sl vs list | grep $HOSTNAME"
-
+watch slcli vs list

@@ -1,6 +1,5 @@
 #!/bin/bash
 # Switch sotlayer account updating the config and vpn files
-#
 
 select account in ~/bin/sl_credentials/*; do
 	echo "Configuring account $account"
@@ -15,10 +14,11 @@ cat > ~/.softlayer <<EOT
 username = $USER
 api_key = $API_KEY
 endpoint_url = https://api.softlayer.com/xmlrpc/v3.1/
+timeout = 0
 EOT
 chmod 600 ~/.softlayer
 
-# Configure sl environment
+# Configure slcli environment
 cp $account ~/.sl_env
 chmod 600 ~/.sl_env
 

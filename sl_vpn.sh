@@ -10,7 +10,7 @@ kill_vpn ()
 {
         $ARRAY -stop
         echo "Resetting resolv.conf..."
-        sudo echo >/etc/resolv.conf
+	sudo restorecon -v /etc/resolv.conf 
         sudo kill -HUP `pidof dhclient`
 }
 
