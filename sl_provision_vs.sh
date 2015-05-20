@@ -12,7 +12,7 @@ OS="ubuntu_latest"
 BILLING="hourly"
 NETWORK="100"
 SSHKEY="<sshkey>"
-POSTINSTALL="https://www.dropbox.com/s/pvthl80336p93gs/sl_post_provision_docker_mongodb.sh?dl=1"
+POSTINSTALL="<postinstall script URL>"
 DISK="25"
 OTHER_OPTIONS=""
 

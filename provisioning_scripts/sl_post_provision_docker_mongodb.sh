@@ -17,7 +17,6 @@ COMMIT
 EOT
 
 echo "Update server..."
-#yum update -y
 apt-get update
 apt-get upgrade -y
 
