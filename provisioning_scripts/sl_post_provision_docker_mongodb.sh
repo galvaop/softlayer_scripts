@@ -17,15 +17,20 @@ COMMIT
 EOT
 
 echo "Update server..."
+#yum update -y
 apt-get update
 apt-get upgrade -y
 
 echo "Install docker.io"
 apt-get install -y docker.io
 
+echo "Install mongodb-clients"
+apt-get install mongodb-clients
+
 echo "Run mongodb docker container and expose port to the internet"
 docker run -d --name mongo_edp -p 27017:27017 mongo
 iptables -A INPUT -p tcp --dport 27017 -j LOG
 iptables -A INPUT -p tcp --dport 27017 -j ACCEPT
+
 
 } | tee $0.log
